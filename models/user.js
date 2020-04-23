@@ -21,6 +21,10 @@ const userSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
+    resetToken: String,
+
+    expireToken: Date,
+
     following: [{
         type: ObjectId,
         ref: 'User'

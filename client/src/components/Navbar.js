@@ -26,6 +26,12 @@ export default function Navbar() {
                         Home
                     </Link>
                 </li>,
+                <li className='nav-link' key='22'>
+                    <Link className='nav-item' to="/search">
+                        <i className="fa fa-search mr-2" aria-hidden="true"></i>
+                        Search
+                    </Link>
+                </li>,
                 <li className='nav-link' key='2'>
                     <Link className='nav-item' to="/explore">
                         <i className="fa fa-search mr-2" aria-hidden="true"></i>

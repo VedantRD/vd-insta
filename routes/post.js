@@ -33,6 +33,7 @@ router.post('/createpost', requireLogin, async (req, res) => {
 router.get('/allposts', requireLogin, async (req, res) => {
     await Post.find()
         .populate('postedBy comments.postedBy', { 'password': 0 })
+        .sort('-postedAt')
         .then(posts => {
             res.json({
                 status: 'success',
@@ -47,6 +48,7 @@ router.get('/allposts', requireLogin, async (req, res) => {
 router.get('/myposts', requireLogin, async (req, res) => {
     await Post.find({ postedBy: req.user._id })
         .populate('postedBy', { 'password': 0 })
+        .sort('-postedAt')
         .then(posts => {
             res.json({
                 status: 'success',
@@ -149,6 +151,7 @@ router.delete('/deletepost/:postId', requireLogin, async (req, res) => {
 router.get('/followposts', requireLogin, async (req, res) => {
     await Post.find({ 'postedBy': { $in: req.user.following } })
         .populate('postedBy comments.postedBy', { 'password': 0 })
+        .sort('-postedAt')
         .then(posts => {
             res.json({
                 status: 'success',

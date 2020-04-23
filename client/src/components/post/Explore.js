@@ -30,12 +30,15 @@ export default function Explore() {
 
     return (
         <div className='container'>
-            {posts.map(item => {
-                return (
-                    <RenderPost item={item} removePostRender={removePostRender} key={item._id}></RenderPost>
-                )
-            })}
-
+            {posts.length !== 0 ?
+                posts.map(item => {
+                    return (
+                        <RenderPost item={item} removePostRender={removePostRender} key={item._id}></RenderPost>
+                    )
+                })
+                :
+                <h3 className='text-center text-muted mt-5'>No Posts Yet</h3>
+            }
         </div>
     )
 }

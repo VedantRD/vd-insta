@@ -33,7 +33,7 @@ export default function Signin() {
                         position: toast.POSITION.BOTTOM_RIGHT
                     });
                     history.push('/')
-                    console.log(res.data)
+                    // console.log(res.data)
                     localStorage.setItem('token', res.data.token)
                     localStorage.setItem('user', JSON.stringify(res.data.user))
                     dispatch({ type: 'USER', payload: res.data.user })
@@ -65,11 +65,13 @@ export default function Signin() {
                             <div className='text-center mt-5 pt-3'>
                                 <p className="btn btn-primary text-center px-3" onClick={() => loginUser()}>Login</p>
                             </div>
-
+                            <p className='text-center'>Forgot Password ?
+                            <Link to='/reset' className='ml-2'>Click Here</Link>
+                            </p>
                         </div>
                         <div className="card-footer text-right mt-0 pt-0 text-muted" style={{ backgroundColor: 'white', border: 0 }}>
                             <Link to='/signup' className='text-muted' style={{ textDecoration: 'none' }}>
-                                <span className='mr-2'>Create new account</span>
+                                <span className='mr-2'>Create New Account</span>
                                 <i className="fa fa-angle-right fa-lg" aria-hidden="true"></i>
                             </Link>
                         </div>

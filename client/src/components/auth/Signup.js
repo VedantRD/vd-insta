@@ -12,7 +12,7 @@ export default function Signup() {
     const [password, setPassword] = useState('')
     const [image, setImage] = useState('')
     const [url, setUrl] = useState('')
-    console.log(url)
+    // console.log(url)
 
     toast.configure()
 

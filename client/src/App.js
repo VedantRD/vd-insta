@@ -10,6 +10,9 @@ import CreatePost from './components/post/CreatePost';
 import { reducer, initialState } from './reducers/userReducer'
 import UserProfile from './components/profile/UserProfile';
 import Explore from './components/post/Explore'
+import Reset from './components/auth/Reset';
+import ResetPassword from './components/auth/ResetPassword'
+import Search from './components/search/Search';
 
 export const UserContext = createContext()
 
@@ -24,7 +27,8 @@ const Routing = () => {
       history.push('/')
     }
     else {
-      history.push('/signin')
+      if (!history.location.pathname.startsWith('/reset'))
+        history.push('/signin')
     }
   }, [history, dispatch])
 
@@ -39,6 +43,12 @@ const Routing = () => {
       <Route path='/signin'>
         <Signin></Signin>
       </Route>
+      <Route path='/reset'>
+        <Reset></Reset>
+      </Route>
+      <Route path='/reset-password/:resetToken'>
+        <ResetPassword></ResetPassword>
+      </Route>
       <Route exact path='/profile'>
         <Profile></Profile>
       </Route>
@@ -50,6 +60,9 @@ const Routing = () => {
       </Route>
       <Route path='/explore'>
         <Explore></Explore>
+      </Route>
+      <Route path='/search'>
+        <Search></Search>
       </Route>
     </Switch>
   )

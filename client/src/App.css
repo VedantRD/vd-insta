@@ -181,3 +181,23 @@ nav ul li a:hover{
     /* border: 3px solid #eee; */
     /* box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3); */
 }
+
+/* ======== Search Page =========== */
+.searchInput{
+    border-width: 0px !important;
+    border-bottom-width: 2px !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    margin-left: 25% !important;
+    width: 50% !important;
+}
+
+@media only screen and (max-width:600px){
+    .searchCard{
+        margin: 0 0 !important;
+    }
+    .searchInput{
+        margin-left: 0% !important;
+        width: 100% !important;
+    }
+}
