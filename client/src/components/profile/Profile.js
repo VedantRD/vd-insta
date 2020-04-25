@@ -186,7 +186,14 @@ export default function Profile() {
 
                 </div>
                 :
-                <div>Loading...</div>
+                <div className="d-flex justify-content-center mt-5">
+                    <h3 className='text-muted text-center mr-4'>
+                        Loading Data
+                    </h3>
+                    <div className="spinner-border text-secondary" role="status">
+                        <span className="sr-only">Loading...</span>
+                    </div>
+                </div>
             }
         </div >
     )

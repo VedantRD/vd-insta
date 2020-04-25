@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-// import Moment from 'react-moment'
-// import { UserContext } from '../App'
 import RenderPost from './RenderPost'
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Explore() {
 
     const [posts, setPosts] = useState([])
+    toast.configure()
 
     const removePostRender = (itemId) => {
         let filtered = posts.filter(post => { return post._id !== itemId })
@@ -15,6 +16,11 @@ export default function Explore() {
     }
 
     useEffect(() => {
+
+        toast.info('Getting Latest Posts For You', {
+            position: toast.POSITION.BOTTOM_RIGHT,
+        });
+
         const headers = { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
         axios({
             method: 'get',
@@ -37,7 +43,14 @@ export default function Explore() {
                     )
                 })
                 :
-                <h3 className='text-center text-muted mt-5'>No Posts Yet</h3>
+                <div className="d-flex justify-content-center mt-5">
+                    <h3 className='text-muted text-center mr-4'>
+                        Loading Data
+                    </h3>
+                    <div className="spinner-border text-secondary" role="status">
+                        <span className="sr-only">Loading...</span>
+                    </div>
+                </div>
             }
         </div>
     )

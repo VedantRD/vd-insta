@@ -102,11 +102,11 @@ router.post('/signin', async (req, res) => {
                 .then(didMatch => {
                     if (didMatch) {
                         const token = jwt.sign({ _id: savedUser._id }, JWT_SECRET)
-                        const { _id, name, email, following, followers, profilePhoto } = savedUser
+                        const { _id, name, email, following, followers, profilePhoto, activity } = savedUser
                         return res.json({
                             status: 'success',
                             message: 'succesfully signed in !!',
-                            user: { _id, name, email, following, followers, profilePhoto },
+                            user: { _id, name, email, following, followers, profilePhoto, activity },
                             token
                         })
                     }
@@ -225,7 +225,7 @@ router.post('/reset-password', (req, res) => {
         .catch(err => console.log(err))
 })
 
-
+// Search Users
 router.post('/search', (req, res) => {
     // console.log(req.body)
     let pattern = new RegExp('^' + req.body.query, 'i')

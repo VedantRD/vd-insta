@@ -14,7 +14,8 @@ export default function RenderPost({ item, removePostRender }) {
     toast.configure()
 
     // {/* --------- Like Post ---------- */ }
-    const likeThePost = (postId) => {
+    const likeThePost = (postId, postedByID) => {
+        console.log(postedByID)
         setPostLikes([...postLikes, user._id])
         const headers = { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
         axios({
@@ -22,7 +23,7 @@ export default function RenderPost({ item, removePostRender }) {
             url: '/like',
             headers,
             data: {
-                postId
+                postId, postedByID
             }
         })
             .then((res) => {
@@ -51,7 +52,7 @@ export default function RenderPost({ item, removePostRender }) {
     }
 
     // {/* --------- Comment on Post ---------- */ }
-    const commentThePost = (text, postId) => {
+    const commentThePost = (text, postId, postedByID) => {
         const postedBy = {
             name: user.name
         }
@@ -68,7 +69,8 @@ export default function RenderPost({ item, removePostRender }) {
             data: {
                 postId,
                 text,
-                created: new Date()
+                created: new Date(),
+                postedByID
             }
         })
             .then((res) => {
@@ -146,7 +148,7 @@ export default function RenderPost({ item, removePostRender }) {
                                         {postLikes.length}
                                     </span>
                                     :
-                                    <span onClick={() => likeThePost(item._id)} style={{ cursor: 'pointer' }}>
+                                    <span onClick={() => likeThePost(item._id, item.postedBy._id)} style={{ cursor: 'pointer' }}>
                                         <i className='fa fa-heart-o mr-2' aria-hidden='true'></i>{postLikes.length}
                                     </span>
                                 }
@@ -173,15 +175,15 @@ export default function RenderPost({ item, removePostRender }) {
                         {/* --------- Comment Form ---------- */}
                         <form className='px-3 py-2 big' onSubmit={(e) => {
                             e.preventDefault()
-                            commentThePost(e.target[0].value, item._id)
+                            commentThePost(e.target[0].value, item._id, item.postedBy._id)
                         }}>
                             <div className='row no-gutters align-items-center'>
                                 <div className='col-11'>
                                     <input type="text" className="form-control commentInput ml-0 pl-0" placeholder="Add Comment" id='clrInput' />
                                 </div>
-                                <div className='col-1 align-self-start'>
+                                <div className='col-1 align-self-start postCommentBtn'>
                                     <button type='submit' className='btn text-primary ml-auto p-0 pr-2' style={{ backgroundColor: 'transparent', boxShadow: 'none' }}>
-                                        <span style={{ fontSize: 19 }}>Post</span>
+                                        <span style={{ fontSize: 19 }} className='postCommentBtnText'>Post</span>
                                     </button>
                                 </div>
                             </div>
@@ -218,7 +220,14 @@ export default function RenderPost({ item, removePostRender }) {
 
                 :
 
-                <big className='text-center'>Loading Data</big>
+                <div className="d-flex justify-content-center mt-5">
+                    <h3 className='text-muted text-center mr-4'>
+                        Loading Data
+                    </h3>
+                    <div className="spinner-border text-secondary" role="status">
+                        <span className="sr-only">Loading...</span>
+                    </div>
+                </div>
             }
         </div>
     )

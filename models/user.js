@@ -32,7 +32,18 @@ const userSchema = new mongoose.Schema({
     followers: [{
         type: ObjectId,
         ref: 'User'
-    }]
+    }],
+    activity: [
+        {
+            text: String,
+            createdAt: Date,
+            doneBy: {
+                type: ObjectId,
+                ref: 'User'
+            },
+            postId: String
+        }
+    ]
 })
 
 mongoose.model('User', userSchema)

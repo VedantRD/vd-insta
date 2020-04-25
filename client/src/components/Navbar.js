@@ -22,7 +22,7 @@ export default function Navbar() {
             return [
                 <li className='nav-link' key='1'>
                     <Link className='nav-item' to="/">
-                        <i className="fa fa-home fa-lg mr-2" aria-hidden="true"></i>
+                        <i className="fa fa-home mr-2" aria-hidden="true" style={{ fontSize: 21 }}></i>
                         Home
                     </Link>
                 </li>,
@@ -34,9 +34,15 @@ export default function Navbar() {
                 </li>,
                 <li className='nav-link' key='2'>
                     <Link className='nav-item' to="/explore">
-                        <i className="fa fa-search mr-2" aria-hidden="true"></i>
+                        <i className="fa fa-rocket mr-2" aria-hidden="true"></i>
                         Explore
                     </Link>
+                </li>,
+                <li className='nav-link' key='33'>
+                    <Link className='nav-item' to="/activity">
+                        <i className="fa fa-bell mr-2" aria-hidden="true"></i>
+                    Notifications
+                </Link>
                 </li>,
                 <li className='nav-link' key='3'>
                     <Link className='nav-item' to="/createpost">
@@ -46,7 +52,7 @@ export default function Navbar() {
                 </li>,
                 <li className='nav-link' key='4'>
                     <Link className='nav-item' to="/profile">
-                        <i className="fa fa-user-o mr-2" aria-hidden="true"></i>
+                        <i className="fa fa-user mr-2" aria-hidden="true"></i>
                         Profile
                     </Link>
                 </li>,

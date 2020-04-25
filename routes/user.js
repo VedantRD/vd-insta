@@ -51,6 +51,19 @@ router.patch('/follow', requireLogin, (req, res) => {
         User.findByIdAndUpdate(req.user._id, { $push: { following: req.body.followId } }, { new: true })
             .select('-password')
             .then(result => {
+
+                const activity = {
+                    text: `${req.user.name} started following you`,
+                    createdAt: new Date(),
+                    doneBy: req.user,
+                }
+                User.findByIdAndUpdate(req.body.followId, { $push: { activity } }, { new: true })
+                    .then((followedRes) => {
+                        // console.log('liked saved success')
+                        console.log(followedRes)
+                    })
+                    .catch(err => console.log(err))
+
                 res.json({
                     status: 'success',
                     messsage: 'successfully followed the user',
@@ -81,6 +94,19 @@ router.patch('/unfollow', requireLogin, (req, res) => {
             })
             .catch(err => console.log(err))
     })
+})
+
+// Get all activities 
+router.get('/activities', requireLogin, (req, res) => {
+    User.findOne(req.user._id)
+        .then(user => {
+            res.json({
+                status: 'success',
+                message: 'fetched all activities successfully',
+                activity: user.activity
+            })
+        })
+        .catch(err => console.log(err))
 })
 
 module.exports = router

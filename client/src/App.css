@@ -7,22 +7,12 @@ body{
 
 /* ======== Navbar Styling ========= */
 
-@media only screen and (min-width: 1000px) {
-    nav{
-        height: 60px;
-    }
-}
 @media only screen and (max-width:600px){
-    #navbarNav{
-        margin-top: 15px !important;
-        margin-bottom: 5px !important;
-        margin-left: -7px !important;
+    nav ul li{
+        align-self: start;
     }
-    nav ul{
-        display:inline !important;
-    }
-    nav li{
-        display:inline !important;
+    .navbar-brand{
+        margin-left: 10px;
     }
 }
 
@@ -149,6 +139,15 @@ nav ul li a:hover{
     content: none !important;
 }
 
+@media only screen and (max-width:600px){
+    .postCommentBtn{
+        margin-left: -15px !important;
+    }
+    .postCommentBtnText{
+        font-size: 17px !important;
+    }
+}
+
 /* ============ User Profile Page ============ */
 
 @media only screen and (max-width:600px){
@@ -199,5 +198,17 @@ nav ul li a:hover{
     .searchInput{
         margin-left: 0% !important;
         width: 100% !important;
+    }
+}
+
+/* ============ activity page ============= */
+@media only screen and (max-width:600px){
+    .activityCard{
+        margin: 0 0 !important;
+        padding: 0 0 !important;
+        margin-top: 20px !important;
+        margin-bottom: 20px !important;
+        background-color: rgba(233, 236, 236, 0.66) !important;
+        max-height: 100% !important;
     }
 }

@@ -13,6 +13,7 @@ import Explore from './components/post/Explore'
 import Reset from './components/auth/Reset';
 import ResetPassword from './components/auth/ResetPassword'
 import Search from './components/search/Search';
+import Activity from './components/activity/Activity';
 
 export const UserContext = createContext()
 
@@ -63,6 +64,9 @@ const Routing = () => {
       </Route>
       <Route path='/search'>
         <Search></Search>
+      </Route>
+      <Route path='/activity'>
+        <Activity></Activity>
       </Route>
     </Switch>
   )

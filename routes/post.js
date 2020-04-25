@@ -5,6 +5,7 @@ const requireLogin = require('../middlewares/requireLogin')
 
 // Importing Post Model
 const Post = mongoose.model('Post')
+const User = mongoose.model('User')
 
 // Create new Post
 router.post('/createpost', requireLogin, async (req, res) => {
@@ -67,6 +68,22 @@ router.patch('/like', requireLogin, async (req, res) => {
         { new: true }
     )
         .then(post => {
+            // console.log(req.body.postedByID)
+            if (req.user._id != req.body.postedByID) {
+                const activity = {
+                    text: `${req.user.name} liked your post`,
+                    createdAt: new Date(),
+                    doneBy: req.user,
+                    postId: req.body.postId
+                }
+                User.findByIdAndUpdate(req.body.postedByID, { $push: { activity } }, { new: true })
+                    .then((likedRes) => {
+                        // console.log('liked saved success')
+                        // console.log(likedRes)
+                    })
+                    .catch(err => console.log(err))
+            }
+
             res.json({
                 status: 'success',
                 message: 'post liked',
@@ -93,7 +110,7 @@ router.patch('/unlike', requireLogin, async (req, res) => {
         .catch(err => { console.log(err) })
 })
 
-// Comment THe Post
+// Comment The Post
 router.patch('/comment', requireLogin, async (req, res) => {
     const comment = {
         text: req.body.text,
@@ -114,6 +131,22 @@ router.patch('/comment', requireLogin, async (req, res) => {
                 })
             }
             else {
+                // console.log(req.body.postedByID)
+                if (req.user._id != req.body.postedByID) {
+                    const activity = {
+                        text: `${req.user.name} commented on your post`,
+                        createdAt: new Date(),
+                        doneBy: req.user,
+                        postId: req.body.postId
+                    }
+                    User.findByIdAndUpdate(req.body.postedByID, { $push: { activity } }, { new: true })
+                        .then((commentedRes) => {
+                            // console.log('liked saved success')
+                            // console.log(commentedRes)
+                        })
+                        .catch(err => console.log(err))
+                }
+
                 res.json({
                     status: 'success',
                     message: 'Commented on post',
