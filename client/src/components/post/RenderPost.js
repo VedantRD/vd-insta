@@ -8,10 +8,21 @@ import { Link } from 'react-router-dom';
 
 export default function RenderPost({ item, removePostRender }) {
 
+    function sortByProperty(property) {
+        return function (a, b) {
+            if (a[property] < b[property])
+                return 1;
+            else if (a[property] > b[property])
+                return -1;
+
+            return 0;
+        }
+    }
+
     const user = useContext(UserContext).state
     const [postLikes, setPostLikes] = useState(item.likes)
-    const [postComments, setPostComments] = useState(item.comments)
-    toast.configure()
+    const [postComments, setPostComments] = useState(item.comments.sort(sortByProperty('created')))
+    console.log(postComments)
 
     // {/* --------- Like Post ---------- */ }
     const likeThePost = (postId, postedByID) => {

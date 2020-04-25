@@ -86,7 +86,7 @@ export default function Signup() {
 
     return (
         <div className='container loginForm'>
-            <div className='row justify-content-center my-5'>
+            <div className='row justify-content-center my-2'>
                 {!localStorage.getItem('user') ?
                     <div className="card p-3 loginForm-shadow mt-5 register-card" style={{ width: 370 }}>
                         <form>
