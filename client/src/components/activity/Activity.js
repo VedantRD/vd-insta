@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 
 export default function Activity() {
 
-    const [activities, setActivities] = useState([])
+    const [activities, setActivities] = useState(null)
     toast.configure()
 
     useEffect(() => {
@@ -18,7 +18,13 @@ export default function Activity() {
             headers
         })
             .then(res => {
-                setActivities(res.data.activity)
+                if (res.data.activity.length === 0) {
+                    setActivities([])
+                }
+                else {
+                    setActivities(res.data.activity)
+                }
+
                 // console.log(res.data)
             })
             .catch(err => console.log(err))
@@ -26,7 +32,7 @@ export default function Activity() {
 
     return (
         <div className='container'>
-            {activities.length !== 0 ?
+            {activities !== null && activities.length > 0 ?
                 <div className='card activityCard' style={{
                     margin: '0 150px', marginTop: 70, maxHeight: '600px', overflowY: 'auto'
                 }}>
@@ -49,14 +55,21 @@ export default function Activity() {
                     </div>
                 </div>
                 :
-                <div className="d-flex justify-content-center mt-5">
-                    <h3 className='text-muted text-center mr-4'>
-                        Loading Data
+                activities === null ?
+                    <div className="d-flex justify-content-center mt-5">
+                        <h3 className='text-muted text-center mr-4'>
+                            Loading Data
                     </h3>
-                    <div className="spinner-border text-secondary" role="status">
-                        <span className="sr-only">Loading...</span>
+                        <div className="spinner-border text-secondary" role="status">
+                            <span className="sr-only">Loading...</span>
+                        </div>
                     </div>
-                </div>
+                    :
+                    <div className="d-flex justify-content-center mt-5">
+                        <h3 className='text-muted text-center mr-4'>
+                            No Recent Activities
+                        </h3>
+                    </div>
             }
         </div>
     )
