@@ -208,7 +208,7 @@ export default function RenderPost({ item, removePostRender }) {
                             {postComments ?
                                 postComments.map(comment => {
                                     return (
-                                        <div key={comment._id}>
+                                        <div key={comment._id} className='mb-1'>
                                             <div>
                                                 <Link to={user._id !== comment.postedBy._id ?
                                                     `/profile/${comment.postedBy._id}`
@@ -218,7 +218,7 @@ export default function RenderPost({ item, removePostRender }) {
                                                 </Link>
                                                 <span>{comment.text}</span>
                                             </div>
-                                            <small className='text-muted'><Moment fromNow ago>{comment.created}</Moment> ago</small>
+                                            <small className='text-muted '><Moment fromNow ago>{comment.created}</Moment> ago</small>
                                         </div>
                                     )
                                 })
