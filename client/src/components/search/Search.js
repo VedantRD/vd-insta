@@ -36,7 +36,7 @@ export default function Search() {
                                 return (
                                     <Link to={state._id === user._id ? `/profile` : `/profile/${user._id}`} key={user._id} className='text-dark'>
                                         <li className="list-group-item">
-                                            <img src={user.profilePhoto} style={{ height: 40, width: 40, borderRadius: 25 }}></img>
+                                            <img src={user.profilePhoto !== '' ? user.profilePhoto : 'https://image.flaticon.com/icons/png/512/149/149071.png'} style={{ height: 40, width: 40, borderRadius: 25 }}></img>
                                             <span className='ml-3'>{user.name}</span>
                                         </li>
                                     </Link>

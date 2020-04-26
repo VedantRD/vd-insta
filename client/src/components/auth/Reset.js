@@ -21,7 +21,7 @@ export default function Reset() {
                     toast.success(res.data.message, {
                         position: toast.POSITION.BOTTOM_RIGHT
                     });
-                    console.log(res.data)
+                    // console.log(res.data)
                 }
                 else
                     toast.error(res.data.message, {

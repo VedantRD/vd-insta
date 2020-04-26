@@ -60,6 +60,20 @@ router.get('/myposts', requireLogin, async (req, res) => {
         .catch(err => console.log(err))
 })
 
+// Get One Post
+router.get('/getOnePost/:postId', requireLogin, async (req, res) => {
+    await Post.findOne({ _id: req.params.postId })
+        .populate('postedBy comments.postedBy', { 'password': 0 })
+        .then(post => {
+            res.json({
+                status: 'success',
+                message: 'one post is fetched successfully',
+                post
+            })
+        })
+        .catch(err => console.log(err))
+})
+
 // Like The Post
 router.patch('/like', requireLogin, async (req, res) => {
     await Post.findByIdAndUpdate(
@@ -71,7 +85,7 @@ router.patch('/like', requireLogin, async (req, res) => {
             // console.log(req.body.postedByID)
             if (req.user._id != req.body.postedByID) {
                 const activity = {
-                    text: `${req.user.name} liked your post`,
+                    text: `liked your post`,
                     createdAt: new Date(),
                     doneBy: req.user,
                     postId: req.body.postId
@@ -134,7 +148,7 @@ router.patch('/comment', requireLogin, async (req, res) => {
                 // console.log(req.body.postedByID)
                 if (req.user._id != req.body.postedByID) {
                     const activity = {
-                        text: `${req.user.name} commented on your post`,
+                        text: `commented on your post`,
                         createdAt: new Date(),
                         doneBy: req.user,
                         postId: req.body.postId

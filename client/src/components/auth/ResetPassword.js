@@ -42,7 +42,7 @@ export default function ResetPassword() {
                         position: toast.POSITION.BOTTOM_RIGHT
                     });
                     history.push('/signin')
-                    console.log(res.data)
+                    //console.log(res.data)
                 }
                 else
                     toast.error(res.data.message, {

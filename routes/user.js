@@ -53,7 +53,7 @@ router.patch('/follow', requireLogin, (req, res) => {
             .then(result => {
 
                 const activity = {
-                    text: `${req.user.name} started following you`,
+                    text: `started following you`,
                     createdAt: new Date(),
                     doneBy: req.user,
                 }
@@ -99,6 +99,7 @@ router.patch('/unfollow', requireLogin, (req, res) => {
 // Get all activities 
 router.get('/activities', requireLogin, (req, res) => {
     User.findOne(req.user._id)
+        .populate('activity.doneBy')
         .then(user => {
             res.json({
                 status: 'success',
@@ -107,6 +108,26 @@ router.get('/activities', requireLogin, (req, res) => {
             })
         })
         .catch(err => console.log(err))
+})
+
+// Update Bio
+router.patch('/updateBio', requireLogin, (req, res) => {
+    User.findByIdAndUpdate(req.user._id, { $set: { bio: req.body.newBio } }, { new: true })
+        .exec((err, result) => {
+
+            if (err) {
+                return res.json({
+                    status: 'failed',
+                    message: err
+                })
+            }
+
+            res.json({
+                status: 'success',
+                message: 'Bio Updated Successfully',
+                result
+            })
+        })
 })
 
 module.exports = router

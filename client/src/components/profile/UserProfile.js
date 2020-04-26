@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react'
 import axios from 'axios'
 import { UserContext } from '../../App'
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -41,7 +41,7 @@ export default function UserProfile() {
             }
         })
             .then((res) => {
-                console.log(res.data)
+                //console.log(res.data)
                 dispatch({ type: 'UPDATE', payload: { following: res.data.result.following, followers: res.data.result.followers } })
                 localStorage.setItem('user', JSON.stringify(res.data.result))
                 setUser((prev) => {
@@ -69,7 +69,7 @@ export default function UserProfile() {
             }
         })
             .then((res) => {
-                console.log(res.data)
+                //console.log(res.data)
                 dispatch({ type: 'UPDATE', payload: { following: res.data.result.following, followers: res.data.result.followers } })
                 localStorage.setItem('user', JSON.stringify(res.data.result))
                 let filtered = user.followers.filter(item => item !== res.data.result._id)
@@ -158,12 +158,22 @@ export default function UserProfile() {
 
                         :
 
-                        <div className='gallery'>
+                        // <div className='gallery'>
+                        //     {userPosts.map(userPost => {
+                        //         return (
+                        //             <img src={userPost.photo} key={userPost._id} alt='mypost'></img>
+                        //         )
+                        //     })}
+                        // </div>
+
+                        <div className='row no-gutters'>
                             {userPosts.map(userPost => {
                                 return (
-                                    // <div>
-                                    <img src={userPost.photo} key={userPost._id} alt='mypost'></img>
-                                    // </div>
+                                    <div className='col-6 p-1' key={userPost._id}>
+                                        <Link to={`/openpost/${userPost._id}`}>
+                                            <img src={userPost.photo} alt='onepost' className='img-fluid w-100'></img>
+                                        </Link>
+                                    </div>
                                 )
                             })}
                         </div>

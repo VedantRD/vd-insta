@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react'
-// import { Link } from 'react-router-dom'
-// import { UserContext } from '../../App'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios'
 import Moment from 'react-moment'
+import { Link } from 'react-router-dom';
 
 export default function Activity() {
 
-    // const { state, dispatch } = useContext(UserContext)
     const [activities, setActivities] = useState([])
     toast.configure()
 
@@ -21,7 +19,7 @@ export default function Activity() {
         })
             .then(res => {
                 setActivities(res.data.activity)
-                console.log(res.data)
+                // console.log(res.data)
             })
             .catch(err => console.log(err))
     }, [])
@@ -38,8 +36,10 @@ export default function Activity() {
                             {activities.map(activity => {
                                 return (
                                     <li className='text-muted list-group-item' id='sr' key={activity._id} style={{ border: 0, borderBottom: '1px solid rgba(0,0,0,.125)' }}>
-                                        <div className='d-flex justify-content-between'>
-                                            {activity.text}
+                                        <div className='d-flex justify-content-between activity-text'>
+                                            <span>
+                                                <Link to={`/profile/${activity.doneBy._id}`} className='text-dark font-weight-bold'>{activity.doneBy.name}</Link> {activity.text}
+                                            </span>
                                             <div className="text-muted small"><Moment fromNow ago>{activity.createdAt}</Moment>  ago</div>
                                         </div>
                                     </li>

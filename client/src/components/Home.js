@@ -12,7 +12,7 @@ export default function Home() {
     const removePostRender = (itemId) => {
         let filtered = posts.filter(post => { return post._id !== itemId })
         setPosts(filtered)
-        console.log('deletion successful')
+        //console.log('deletion successful')
     }
 
     useEffect(() => {

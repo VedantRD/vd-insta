@@ -4,6 +4,7 @@ import { UserContext } from '../../App'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import $ from 'jquery'
+import { Link } from 'react-router-dom';
 
 export default function Profile() {
 
@@ -12,10 +13,38 @@ export default function Profile() {
     const [user, setUser] = useState(state)
     const [image, setImage] = useState('')
     const [url, setUrl] = useState('')
+    const [bio, setBio] = useState('')
 
     // console.log(url)
 
     toast.configure()
+
+    const updateBio = () => {
+        const headers = { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+
+        axios({
+            method: 'patch',
+            url: '/updateBio',
+            headers,
+            data: { newBio: bio }
+        })
+            .then(res => {
+                //console.log(res.data)
+                if (res.data.status === 'success') {
+                    toast.success(res.data.message, {
+                        position: toast.POSITION.BOTTOM_RIGHT
+                    });
+                    localStorage.setItem('user', JSON.stringify({ ...user, bio }))
+                    dispatch({ type: 'UPDATE_BIO', payload: bio })
+                    setUser({ ...user, bio })
+                }
+                else
+                    toast.error(res.data.message, {
+                        position: toast.POSITION.BOTTOM_RIGHT,
+                    });
+            })
+            .catch(err => console.log(err.message))
+    }
 
     const updateProfilePhoto = async () => {
         const data = new FormData()
@@ -46,7 +75,7 @@ export default function Profile() {
                 data: { newPhoto: url }
             })
                 .then(res => {
-                    console.log(res.data)
+                    //console.log(res.data)
                     if (res.data.status === 'success') {
                         toast.success(res.data.message, {
                             position: toast.POSITION.BOTTOM_RIGHT
@@ -65,6 +94,11 @@ export default function Profile() {
     }, [url])
 
     useEffect(() => {
+
+        if (state) {
+            setBio(user.bio)
+        }
+
         $(".custom-file-input").on("change", function () {
             var fileName = $(this).val().split("\\").pop();
             $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
@@ -112,7 +146,11 @@ export default function Profile() {
                                     <i className="fa fa-pencil-square-o mr-2" aria-hidden="true"></i>
                                     Edit Profile
                                 </span>
-                                <span className=''>
+                                <span style={{ cursor: 'pointer' }} onClick={() => {
+                                    toast.warning('this feature is still in testing phase', {
+                                        position: toast.POSITION.BOTTOM_RIGHT
+                                    });
+                                }}>
                                     <i className="fa fa-cog mr-2" aria-hidden="true"></i>
                                     Settings
                                 </span>
@@ -129,7 +167,16 @@ export default function Profile() {
                                     </div>
                                 </div>
                                 <div className='d-flex justify-content-center mt-2'>
-                                    <span className='btn btn-primary' onClick={() => updateProfilePhoto()}>Update</span>
+                                    <span className='btn btn-primary' onClick={() => updateProfilePhoto()}>Update Profile Photo</span>
+                                </div>
+                            </form>
+                            <form>
+                                <div className='form-group'>
+                                    <label>Update Bio</label>
+                                    <textarea className="form-control" placeholder="Enter Bio" value={bio} onChange={(e) => setBio(e.target.value)} />
+                                </div>
+                                <div className='d-flex justify-content-center mt-2'>
+                                    <span className='btn btn-primary' onClick={() => updateBio()}>Update Bio</span>
                                 </div>
                             </form>
                         </div>
@@ -140,7 +187,7 @@ export default function Profile() {
                     <div className='row no-gutters p-3 pt-4 pb-0 bio-row'>
                         <div className='col-12 align-self-baseline'>
                             <span><b>Bio :</b></span>
-                            <span className='ml-2'>Hello this is bio. It contains information about the person.</span>
+                            <span className='ml-2'>{user.bio}</span>
                         </div>
                     </div>
 
@@ -167,17 +214,19 @@ export default function Profile() {
 
                     {/* ============== Images ============== */}
                     {myposts.length === 0 ?
-                        <div>
-                            <p className='text-center text-muted mt-5'>No Posts Yet</p>
+                        <div className='mt-5'>
+                            <p className='text-center text-muted'>No Posts Yet</p>
                         </div>
 
                         :
 
-                        <div className='gallery'>
+                        <div className='row no-gutters'>
                             {myposts.map(mypost => {
                                 return (
-                                    <div key={mypost._id}>
-                                        <img src={mypost.photo} alt='mypost'></img>
+                                    <div className='col-6 p-1' key={mypost._id}>
+                                        <Link to={`/openpost/${mypost._id}`}>
+                                            <img src={mypost.photo} alt='onepost' className='img-fluid w-100'></img>
+                                        </Link>
                                     </div>
                                 )
                             })}

@@ -22,11 +22,11 @@ export default function RenderPost({ item, removePostRender }) {
     const user = useContext(UserContext).state
     const [postLikes, setPostLikes] = useState(item.likes)
     const [postComments, setPostComments] = useState(item.comments.sort(sortByProperty('created')))
-    console.log(postComments)
+    const commentBox = document.getElementById('clrInput')
 
     // {/* --------- Like Post ---------- */ }
     const likeThePost = (postId, postedByID) => {
-        console.log(postedByID)
+        // console.log(postedByID)
         setPostLikes([...postLikes, user._id])
         const headers = { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
         axios({
@@ -38,7 +38,7 @@ export default function RenderPost({ item, removePostRender }) {
             }
         })
             .then((res) => {
-                console.log(res.data)
+                // console.log(res.data)
             })
             .catch(err => console.error(err));
     }
@@ -57,7 +57,7 @@ export default function RenderPost({ item, removePostRender }) {
             }
         })
             .then((res) => {
-                console.log(res.data)
+                //console.log(res.data)
             })
             .catch(err => console.error(err));
     }
@@ -86,6 +86,7 @@ export default function RenderPost({ item, removePostRender }) {
         })
             .then((res) => {
                 // console.log(res.data)
+                commentBox.value = ''
             })
             .catch(err => console.error(err));
     }
@@ -192,7 +193,7 @@ export default function RenderPost({ item, removePostRender }) {
                                 <div className='col-11'>
                                     <input type="text" className="form-control commentInput ml-0 pl-0" placeholder="Add Comment" id='clrInput' />
                                 </div>
-                                <div className='col-1 align-self-start postCommentBtn'>
+                                <div className='col-1 postCommentBtn'>
                                     <button type='submit' className='btn text-primary ml-auto p-0 pr-2' style={{ backgroundColor: 'transparent', boxShadow: 'none' }}>
                                         <span style={{ fontSize: 19 }} className='postCommentBtnText'>Post</span>
                                     </button>

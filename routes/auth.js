@@ -38,6 +38,13 @@ router.post('/signup', async (req, res) => {
         })
     }
 
+    if (password.length < 8) {
+        return res.json({
+            status: 'failed',
+            message: 'password must be minimum 8 characters long'
+        })
+    }
+
     await User.findOne({ email })
         .then((savedUser) => {
             if (savedUser) {
@@ -102,11 +109,11 @@ router.post('/signin', async (req, res) => {
                 .then(didMatch => {
                     if (didMatch) {
                         const token = jwt.sign({ _id: savedUser._id }, JWT_SECRET)
-                        const { _id, name, email, following, followers, profilePhoto, activity } = savedUser
+                        const { _id, name, email, following, followers, profilePhoto, activity, bio } = savedUser
                         return res.json({
                             status: 'success',
                             message: 'succesfully signed in !!',
-                            user: { _id, name, email, following, followers, profilePhoto, activity },
+                            user: { _id, name, email, following, followers, profilePhoto, activity, bio },
                             token
                         })
                     }

@@ -20,5 +20,11 @@ export const reducer = (state, action) => {
             profilePhoto: action.payload
         }
     }
+    if (action.type === 'UPDATE_BIO') {
+        return {
+            ...state,
+            bio: action.payload
+        }
+    }
     return state
 }

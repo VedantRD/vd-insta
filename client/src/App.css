@@ -85,8 +85,9 @@ nav ul li a:hover{
         padding-top: 10px !important;
     }
     .gallery img{
-        width: 50% !important;
+        width: 100% !important;
     }
+
     .userProfileCard{
         padding: 25px !important;
     }
@@ -211,4 +212,9 @@ nav ul li a:hover{
         background-color: rgba(233, 236, 236, 0.66) !important;
         max-height: 100% !important;
     }
+
+    .activity-time,.activity-text{
+        display: block !important;
+    }
+
 }

@@ -27,7 +27,7 @@ export default function CreatePost() {
         data.append('file', image)
         data.append('upload_preset', 'insta-clone')
         data.append('cloud_name', 'vdcloud')
-        await fetch('https://api.cloudinary.com/v1_1/vdcloud/image/upload', { method: 'post', body: data })
+        await fetch('https://api.cloudinary.com/v1_1/vdcloud/image/upload/', { method: 'post', body: data })
             .then(res => res.json())
             .then(data => {
                 if (data.error) {
@@ -63,7 +63,7 @@ export default function CreatePost() {
                         toast.success(res.data.message, {
                             position: toast.POSITION.BOTTOM_RIGHT
                         });
-                        history.push('/')
+                        history.push('/profile')
                     }
                     else
                         toast.error(res.data.message, {

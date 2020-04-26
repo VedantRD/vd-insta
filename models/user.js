@@ -21,6 +21,10 @@ const userSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
+    bio: {
+        type: String,
+        default: 'This user is too lazy to write even two lines'
+    },
     resetToken: String,
 
     expireToken: Date,
