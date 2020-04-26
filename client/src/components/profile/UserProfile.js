@@ -123,7 +123,7 @@ export default function UserProfile() {
                     <div className='row no-gutters p-3 pt-4'>
                         <div className='col-12 align-self-baseline'>
                             <span><b>Bio :</b></span>
-                            <span className='ml-2'>Hello this is bio. It contains information about the person.</span>
+                            <span className='ml-2'>{user.bio}</span>
                         </div>
                     </div>
 

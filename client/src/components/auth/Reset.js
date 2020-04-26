@@ -1,14 +1,10 @@
-import React, { useState, useContext } from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import React, { useState } from 'react'
 import axios from 'axios'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { UserContext } from '../../App'
 
 export default function Reset() {
 
-    const { state, dispatch } = useContext(UserContext)
-    const history = useHistory()
     const [email, setEmail] = useState('')
 
     toast.configure()
