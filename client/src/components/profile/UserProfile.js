@@ -119,7 +119,6 @@ export default function UserProfile() {
                     </div>
 
                     {/* ========== Second Row ========= */}
-
                     <div className='row no-gutters p-3 pt-4'>
                         <div className='col-12 align-self-baseline'>
                             <span><b>Bio :</b></span>
@@ -137,13 +136,17 @@ export default function UserProfile() {
                                 <span>All Posts</span>
 
                             </li>
-                            <li className='col d-flex flex-column text-center'>
-                                <span>{user.following.length}</span>
-                                <span>Following</span>
+                            <li className='col'>
+                                <Link to={`/showfollowing/${user._id}`} className='d-flex flex-column text-dark text-center'>
+                                    <span>{user.following.length}</span>
+                                    <span>Following</span>
+                                </Link>
                             </li>
-                            <li className='col d-flex flex-column text-center'>
-                                <span>{user.followers.length}</span>
-                                <span>Followers</span>
+                            <li className='col'>
+                                <Link to={`/showfollowers/${user._id}`} className='d-flex flex-column text-dark text-center'>
+                                    <span>{user.followers.length}</span>
+                                    <span>Followers</span>
+                                </Link>
                             </li>
                         </ul>
                     </div>
@@ -157,14 +160,6 @@ export default function UserProfile() {
                         </div>
 
                         :
-
-                        // <div className='gallery'>
-                        //     {userPosts.map(userPost => {
-                        //         return (
-                        //             <img src={userPost.photo} key={userPost._id} alt='mypost'></img>
-                        //         )
-                        //     })}
-                        // </div>
 
                         <div className='row no-gutters'>
                             {userPosts.map(userPost => {

@@ -11,21 +11,24 @@ export default function Search() {
 
     const fetchUsers = (query) => {
         setSearch(query)
-        axios.post('/search', { query })
-            .then(result => {
-                // console.log(result.data.users)
-                setUsers(result.data.users)
-            })
-            .catch(err => console.log(err))
+        if (query !== '') {
+            axios.post('/search', { query })
+                .then(result => {
+                    // console.log(result.data.users)
+                    setUsers(result.data.users)
+                })
+                .catch(err => console.log(err))
+        }
     }
 
     return (
         <div className='container pt-4'>
 
-            <div className='card p-5 searchCard' style={{ margin: '0 150px' }}>
+            <div className='card p-5 searchCard' style={{ margin: '0 150px', marginTop: '5%' }}>
+                <h3 className='text-center mb-5'>Search People</h3>
                 <form>
                     <div className="form-group">
-                        <input type="email" className="form-control searchInput" placeholder="Search User Here" value={search} onChange={(e) => fetchUsers(e.target.value)} />
+                        <input type="email" className="form-control searchInput" placeholder="username" value={search} onChange={(e) => fetchUsers(e.target.value)} />
                     </div>
                 </form>
 
@@ -43,7 +46,7 @@ export default function Search() {
                                 )
                             })
                             :
-                            <p className='text-center text-muted mt-3' id='sr'>No Searches Found</p>
+                            <p className='text-center text-muted mt-3' id='sr'>Related Searches will show up here</p>
                         }
                     </ul>
                 </div>

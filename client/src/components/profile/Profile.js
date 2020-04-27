@@ -200,13 +200,17 @@ export default function Profile() {
                                 <span>All Posts</span>
 
                             </li>
-                            <li className='col d-flex flex-column text-center'>
-                                <span>{user.following.length}</span>
-                                <span>Following</span>
+                            <li className='col'>
+                                <Link to={`/showfollowing/${user._id}`} className='d-flex flex-column text-dark text-center'>
+                                    <span>{user.following.length}</span>
+                                    <span>Following</span>
+                                </Link>
                             </li>
-                            <li className='col d-flex flex-column text-center'>
-                                <span>{user.followers.length}</span>
-                                <span>Followers</span>
+                            <li className='col'>
+                                <Link to={`/showfollowers/${user._id}`} className='d-flex flex-column text-dark text-center'>
+                                    <span>{user.followers.length}</span>
+                                    <span>Followers</span>
+                                </Link>
                             </li>
                         </ul>
                     </div>

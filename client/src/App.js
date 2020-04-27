@@ -15,6 +15,8 @@ import ResetPassword from './components/auth/ResetPassword'
 import Search from './components/search/Search';
 import Activity from './components/activity/Activity';
 import OpenPost from './components/post/OpenPost';
+import ShowFollowing from './components/profile/ShowFollowing';
+import ShowFollowers from './components/profile/ShowFollowers';
 
 export const UserContext = createContext()
 
@@ -71,6 +73,12 @@ const Routing = () => {
       </Route>
       <Route path='/openpost/:postId'>
         <OpenPost></OpenPost>
+      </Route>
+      <Route path='/showfollowing/:userId'>
+        <ShowFollowing></ShowFollowing>
+      </Route>
+      <Route path='/showfollowers/:userId'>
+        <ShowFollowers></ShowFollowers>
       </Route>
     </Switch>
   )

@@ -86,7 +86,7 @@ router.patch('/like', requireLogin, async (req, res) => {
             if (req.user._id != req.body.postedByID) {
                 const activity = {
                     text: `liked your post`,
-                    createdAt: new Date(),
+                    createdAt: Date.now(),
                     doneBy: req.user,
                     postId: req.body.postId
                 }
@@ -149,7 +149,7 @@ router.patch('/comment', requireLogin, async (req, res) => {
                 if (req.user._id != req.body.postedByID) {
                     const activity = {
                         text: `commented on your post`,
-                        createdAt: new Date(),
+                        createdAt: Date.now(),
                         doneBy: req.user,
                         postId: req.body.postId
                     }

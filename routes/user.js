@@ -40,8 +40,8 @@ router.get('/user/:id', requireLogin, async (req, res) => {
 })
 
 // Follow the User
-router.patch('/follow', requireLogin, (req, res) => {
-    User.findByIdAndUpdate(req.body.followId, { $push: { followers: req.user._id } }, { new: true }, (err, result) => {
+router.patch('/follow', requireLogin, async (req, res) => {
+    await User.findByIdAndUpdate(req.body.followId, { $push: { followers: req.user._id } }, { new: true }, (err, result) => {
         if (err) {
             return res.json({
                 status: 'failed',
@@ -54,7 +54,7 @@ router.patch('/follow', requireLogin, (req, res) => {
 
                 const activity = {
                     text: `started following you`,
-                    createdAt: new Date(),
+                    createdAt: Date.now(),
                     doneBy: req.user,
                 }
                 User.findByIdAndUpdate(req.body.followId, { $push: { activity } }, { new: true })
@@ -75,8 +75,8 @@ router.patch('/follow', requireLogin, (req, res) => {
 })
 
 // Unfollow the User
-router.patch('/unfollow', requireLogin, (req, res) => {
-    User.findByIdAndUpdate(req.body.unfollowId, { $pull: { followers: req.user._id } }, { new: true }, (err, result) => {
+router.patch('/unfollow', requireLogin, async (req, res) => {
+    await User.findByIdAndUpdate(req.body.unfollowId, { $pull: { followers: req.user._id } }, { new: true }, (err, result) => {
         if (err) {
             return res.json({
                 status: 'failed',
@@ -97,22 +97,72 @@ router.patch('/unfollow', requireLogin, (req, res) => {
 })
 
 // Get all activities 
-router.get('/activities', requireLogin, (req, res) => {
-    User.findOne(req.user._id)
+router.get('/activities', requireLogin, async (req, res) => {
+    await User.findOne({ _id: req.user._id })
         .populate('activity.doneBy')
         .then(user => {
             res.json({
                 status: 'success',
                 message: 'fetched all activities successfully',
-                activity: user.activity
+                activity: user.activity.reverse()
             })
         })
         .catch(err => console.log(err))
 })
 
+// Get all following
+router.get('/getfollowing/:userId', requireLogin, async (req, res) => {
+    await User.findOne({ _id: req.params.userId })
+        .then(user => {
+            if (user) {
+                User.find({ _id: { $in: user.following } })
+                    .then(following => {
+                        res.json({
+                            status: 'success',
+                            message: 'fetched user following successfully',
+                            following
+                        })
+                    })
+                    .catch(err => console.log(err))
+            }
+            else {
+                return res.json({
+                    status: 'failed',
+                    message: 'user not found',
+                })
+            }
+        })
+        .catch(err => console.log(err))
+})
+
+// Get all followers
+router.get('/getfollowers/:userId', requireLogin, async (req, res) => {
+    await User.findOne({ _id: req.params.userId })
+        .then(user => {
+            if (user) {
+                User.find({ _id: { $in: user.followers } })
+                    .then(followers => {
+                        res.json({
+                            status: 'success',
+                            message: 'fetched user followers successfully',
+                            followers
+                        })
+                    })
+                    .catch(err => console.log(err))
+            }
+            else {
+                return res.json({
+                    status: 'failed',
+                    message: 'user not found',
+                })
+            }
+        })
+        .catch(err => console.log(err))
+})
+
 // Update Bio
-router.patch('/updateBio', requireLogin, (req, res) => {
-    User.findByIdAndUpdate(req.user._id, { $set: { bio: req.body.newBio } }, { new: true })
+router.patch('/updateBio', requireLogin, async (req, res) => {
+    await User.findByIdAndUpdate(req.user._id, { $set: { bio: req.body.newBio } }, { new: true })
         .exec((err, result) => {
 
             if (err) {
