@@ -30,7 +30,7 @@ export default function Home() {
     }, [])
 
     return (
-        <div className='container'>
+        <div className='home-container container'>
             {posts === undefined ?
 
                 <div className="d-flex justify-content-center mt-5">

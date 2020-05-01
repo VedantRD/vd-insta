@@ -31,10 +31,10 @@ export default function Activity() {
     }, [])
 
     return (
-        <div className='container'>
+        <div className='container activity-container'>
             {activities !== null && activities.length > 0 ?
                 <div className='card activityCard' style={{
-                    margin: '0 150px', marginTop: 70, maxHeight: '600px', overflowY: 'auto'
+                    margin: '0 150px'
                 }}>
 
                     <div className=''>

@@ -118,7 +118,7 @@ export default function Profile() {
     }, [])
 
     return (
-        <div className='container'>
+        <div className='container profile-container'>
             {user ?
                 <div className='card p-5 userProfileCard' style={{ margin: '20px 200px' }}>
 

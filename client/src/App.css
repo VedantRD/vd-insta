@@ -7,6 +7,16 @@ body{
     font-family: 'Roboto', sans-serif;
 }
 
+@media only screen and (max-width:600px){
+    .main-body{
+        margin-top: 60px !important;
+    }
+    .home-container,.explore-container,.profile-container,.activity-container{
+        margin: 0px !important;
+        padding: 0px !important;
+    }
+}
+
 /* ======== Navbar Styling ========= */
 
 @media only screen and (max-width:600px){
@@ -15,6 +25,9 @@ body{
     }
     .navbar-brand{
         margin-left: 10px;
+    }
+    .logout-btn{
+        padding: 6px 6px !important;
     }
 }
 
@@ -38,14 +51,18 @@ body{
     color: white !important;
 }
 
-nav ul li a{
-    color: white !important;
-    margin: 0px 8px;
+nav ul li{
+    margin: 0px 6px;
     font-size: 18px;
 }
 
-nav ul li a:hover{
-    text-decoration: none;
+nav ul li .nav-link{
+    color: #f0ecf3 !important;
+}
+
+nav ul li .nav-link:hover{
+    /* text-decoration: none; */
+    color: white !important;
 }
 
 
@@ -92,6 +109,7 @@ nav ul li a:hover{
 
     .userProfileCard{
         padding: 25px !important;
+        padding-top: 0px !important;
     }
     .editSettingsRow{
         justify-content: space-around !important;

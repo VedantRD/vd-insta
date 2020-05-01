@@ -75,7 +75,7 @@ export default function CreatePost() {
     }, [url, body, title, history])
 
     return (
-        <div className='container'>
+        <div className='container pt-3'>
             <div className='card create-card' style={{ marginTop: 85, marginLeft: 220, marginRight: 220 }}>
                 <div className='card-header'>Create New Post</div>
                 <div className='card-body'>

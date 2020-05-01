@@ -90,7 +90,9 @@ function App() {
     <UserContext.Provider value={{ state, dispatch }}>
       <BrowserRouter>
         <Navbar></Navbar>
-        <Routing></Routing>
+        <div style={{ marginTop: 75 }} className='main-body'>
+          <Routing></Routing>
+        </div>
       </BrowserRouter>
     </UserContext.Provider>
   );

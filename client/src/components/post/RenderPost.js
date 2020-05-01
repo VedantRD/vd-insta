@@ -110,12 +110,12 @@ export default function RenderPost({ item, removePostRender }) {
     }
 
     return (
-        <div className='card home-card' style={{ margin: '15px 270px' }}>
+        <div className='card home-card' style={{ margin: '5px 270px' }}>
             {user ?
                 <div>
 
                     {/* --------- Card Header ---------- */}
-                    <div className='card-header row no-gutters justify-content-start align-items-center' style={{ backgroundColor: 'white' }}>
+                    <div className='card-header row no-gutters justify-content-start align-items-center py-2' style={{ backgroundColor: 'white' }}>
                         <img
                             style={{ height: 50, width: 50, borderRadius: 25, border: '1px solid #eee', boxShadow: '0 1px 1px rgba(0, 0, 0, 0.3)' }}
                             src={item.postedBy.profilePhoto !== '' ? item.postedBy.profilePhoto : 'https://image.flaticon.com/icons/png/512/149/149071.png'}
@@ -144,11 +144,11 @@ export default function RenderPost({ item, removePostRender }) {
                     </div>
 
                     {/* --------- Card Body ---------- */}
-                    <div className='card-body pb-0'>
+                    <div className='card-body pb-0 pt-3'>
                         {/* <Moment format="DD MMM, YYYY">{item.postedAt}</Moment> */}
 
                         {/* ---------------- Like and Comment Row ----------------- */}
-                        <div className='mb-3 row no-gutters' style={{ fontSize: 20 }}>
+                        <div className='mb-3 row no-gutters align-items-center' style={{ fontSize: 20 }}>
 
                             <div className="text-muted small"><Moment fromNow ago>{item.postedAt}</Moment>  ago</div>
 

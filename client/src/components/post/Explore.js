@@ -35,7 +35,7 @@ export default function Explore() {
     }, [])
 
     return (
-        <div className='container'>
+        <div className='explore-container container'>
             {posts.length !== 0 ?
                 posts.map(item => {
                     return (
